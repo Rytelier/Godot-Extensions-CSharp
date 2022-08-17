@@ -34,6 +34,40 @@ public static class Extensions
     public static Vector3 TranformRight(this Spatial spatial) => (spatial.ToGlobal(Vector3.Right) - spatial.Translation).Normalized();
     public static Vector3 TransformUp(this Spatial spatial) => (spatial.ToGlobal(Vector3.Up) - spatial.Translation).Normalized();
 
+    //Smooth rotation for directional rotation, can be used on the Spatial node directly mySpatial.RotateSmoothY(args);
+    /// <summary>
+    /// To be used in _PhysicsProcess. <br/>
+    /// Rotates smoothly on the x axis towards the given angle value.
+    /// </summary>
+    /// <param name="spatial"></param>
+    /// <param name="angle"></param>
+    /// <param name="weight"></param>
+    /// <returns></returns>
+    public static void RotateSmoothY(this Spatial spatial, float angle, float weight) => spatial.Rotation = new Vector3(spatial.Rotation.x, Mathf.LerpAngle(spatial.Rotation.y, angle, weight), spatial.Rotation.z);
+    
+    //Smooth rotation for directional rotation
+    /// <summary>
+    /// To be used in _PhysicsProcess. <br/>
+    /// Rotates smoothly on the y axis towards the given angle value.
+    /// </summary>
+    /// <param name="spatial"></param>
+    /// <param name="angle"></param>
+    /// <param name="weight"></param>
+    /// <returns></returns>
+    public static void RotateSmoothX(this Spatial spatial, float angle, float weight) => spatial.Rotation = new Vector3(Mathf.LerpAngle(spatial.Rotation.x, angle, weight), spatial.Rotation.y, spatial.Rotation.z);
+    
+    //Smooth rotation for directional rotation
+    /// <summary>
+    /// To be used in _PhysicsProcess. <br/>
+    /// Rotates smoothly on the z axis towards the given angle value.
+    /// </summary>
+    /// <param name="spatial"></param>
+    /// <param name="angle"></param>
+    /// <param name="weight"></param>
+    /// <returns></returns>
+    public static void RotateSmoothZ(this Spatial spatial, float angle, float weight) => spatial.Rotation = new Vector3(spatial.Rotation.x, spatial.Rotation.y, Mathf.LerpAngle(spatial.Rotation.z, angle, weight));
+
+    
     //Math
     /// <summary>
     /// Simplification of LinearInterpolate.
